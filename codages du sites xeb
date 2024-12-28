@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitLife - Perte de poids et Bien-être</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-image: url('fitness-background.jpg'); /* Remplacer par le lien de ton image */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            font-size: 3em;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            background-color: rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        section h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        button {
+            background-color: #FF6347;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #FF4500;
+        }
+
+        #paiement-modal, #confirmation, #cadeau {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur FitLife</h1>
+        <p>Votre guide pour perdre du poids, rester en forme et améliorer votre nutrition.</p>
+    </header>
+
+    <main>
+        <!-- Section sur l'e-book -->
+        <section id="ebook">
+            <h2>Notre E-book</h2>
+            <p>Un guide complet pour perdre du poids grâce à une bonne nutrition et des exercices à faire à la maison.</p>
+            <p><strong>Prix : 40€</strong></p>
+            <button onclick="ouvrirPaiement()">Acheter l'E-book</button>
+            <div id="paiement-modal" style="display: none;">
+                <h3>Moyens de paiement</h3>
+                <form id="paiement-form" onsubmit="return effectuerPaiement()">
+                    <label for="moyen-paiement">Choisissez un moyen de paiement :</label>
+                    <select id="moyen-paiement" required>
+                        <option value="">-- Sélectionnez --</option>
+                        <option value="carte">Carte bancaire</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                    <div id="carte-info" style="display: none;">
+                        <label for="numero-carte">Numéro de carte :</label>
+                        <input type="text" id="numero-carte" pattern="\d{16}" placeholder="1234 5678 9012 3456">
+                        <label for="date-expiration">Date d'expiration :</label>
+                        <input type="text" id="date-expiration" pattern="\d{2}/\d{2}" placeholder="MM/AA">
+                        <label for="cvv">CVV :</label>
+                        <input type="text" id="cvv" pattern="\d{3}" placeholder="123">
+                    </div>
+                    <button type="submit">Payer</button>
+                </form>
+                <button onclick="fermerPaiement()">Annuler</button>
+            </div>
+            <div id="confirmation" style="display: none;">Merci pour votre achat !</div>
+        </section>
+
+        <!-- Section nutrition -->
+        <section id="nutrition">
+            <h2>Conseils Nutritionnels</h2>
+            <p>Découvrez des aliments et des recettes pour une alimentation saine et équilibrée :</p>
+            <ul>
+                <li><strong>Aliments :</strong> Fruits, légumes, viandes maigres, poissons, noix, graines, etc.</li>
+                <li><strong>Recettes :</strong> Salade de quinoa, poulet grillé aux légumes, smoothie protéiné.</li>
+                <li><strong>Recette de Salade Detox :</strong> Mélange de légumes frais, avocat, graines de chia, vinaigrette à base de yaourt nature.</li>
+                <li><strong>Recette de Smoothie Énergisant :</strong> Banane, lait d'amande, épinards, graines de lin, yaourt grec.</li>
+            </ul>
+        </section>
+
+        <!-- Section exercices -->
+        <section id="exercices">
+            <h2>Exercices à Faire à la Maison</h2>
+            <ul>
+                <li><strong>Pompes :</strong> 3 séries de 15 répétitions (30 sec de repos entre les séries)</li>
+                <li><strong>Squats :</strong> 4 séries de 20 répétitions (30 sec de repos)</li>
+                <li><strong>Planche :</strong> 3 séries de 1 minute</li>
+                <li><strong>Burpees :</strong> 3 séries de 10 répétitions (30 sec de repos)</li>
+                <li><strong>Sauts à la corde :</strong> 5 séries de 2 minutes (30 sec de repos)</li>
+            </ul>
+        </section>
+
+        <!-- Section Yoga -->
+        <section id="yoga">
+            <h2>Yoga et Relaxation</h2>
+            <p>Pratiquez des postures de yoga pour améliorer votre flexibilité, réduire le stress et retrouver l'équilibre mental :</p>
+            <ul>
+                <li><strong>Posture de l'Arbre :</strong> Tenez la position pendant 30 secondes de chaque côté.</li>
+                <li><strong>Posture de la Charrue :</strong> Restez dans cette posture pendant 1 minute.</li>
+                <li><strong>Posture du Chat-Vache :</strong> 10 séries de mouvements de la colonne vertébrale pour améliorer la flexibilité.</li>
+            </ul>
+        </section>
+
+        <!-- Section fidélité -->
+        <section id="fidelite">
+            <h2>Programme de Fidélité</h2>
+            <p>Invitez un ami et recevez un cadeau exclusif !</p>
+            <form id="invite-form" onsubmit="return inviterAmi()">
+                <label for="email-ami">Email de votre ami :</label>
+                <input type="email" id="email-ami" required>
+                <button type="submit">Inviter</button>
+            </form>
+            <div id="cadeau" style="display: none;">Merci ! Votre cadeau est en chemin !</div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 FitLife. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function ouvrirPaiement() {
+            document.getElementById('paiement-modal').style.display = 'block';
+        }
+
+        function fermerPaiement() {
+            document.getElementById('paiement-modal').style.display = 'none';
+        }
+
+        document.getElementById('moyen-paiement').addEventListener('change', function() {
+            const carteInfo = document.getElementById('carte-info');
+            if (this.value === 'carte') {
+                carteInfo.style.display = 'block';
+            } else {
+                carteInfo.style.display = 'none';
+            }
+        });
+
+        function effectuerPaiement() {
+            const moyenPaiement = document.getElementById('moyen-paiement').value;
+            if (moyenPaiement === 'carte') {
+                alert('Paiement par carte validé !');
+            } else if (moyenPaiement === 'paypal') {
+                alert('Redirection vers PayPal...');
+            } else {
+                alert('Veuillez sélectionner un moyen de paiement.');
+                return false;
+            }
+            document.getElementById('paiement-modal').style.display = 'none';
+            document.getElementById('confirmation').style.display = 'block';
+            return false;
+        }
+
+        function inviterAmi() {
+            const emailAmi = document.getElementById('email-ami').value;
+            if (emailAmi) {
+                document.getElementById('cadeau').style.display = 'block';
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
